@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Serbeev6" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=letscode;Initial Catalog=Serbeev6;Integrated Security=True" SettingsObjectName="ExcelToSqlDataEntry.Properties.Settings" SettingsPropertyName="Serbeev6ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Cars" Member="Cars">
+    <Type Name="Car">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CarName" Type="System.String" DbType="NVarChar(1600) NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CarMakerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="CarMaker_Car" Member="CarMaker" ThisKey="CarMakerId" OtherKey="Id" Type="CarMaker" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CarMaker" Member="CarMakers">
+    <Type Name="CarMaker">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CarMakerName" Type="System.String" DbType="NVarChar(1600)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsDeleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="CarMaker_Car" Member="Cars" ThisKey="Id" OtherKey="CarMakerId" Type="Car" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Nationality" Member="Nationalities">
+    <Type Name="Nationality">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(1550) NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

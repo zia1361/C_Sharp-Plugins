@@ -1,0 +1,12 @@
+﻿.panel {
+   /* //position: absolute;*/
+    cursor: move;
+    z-index: 100;
+}
+
+.dropzone {
+   /* //position : absolute;*/
+    left : 400px;
+    top : 200px;
+    padding : 5px;
+}

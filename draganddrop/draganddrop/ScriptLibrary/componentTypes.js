@@ -1,0 +1,20 @@
+﻿var types = {
+    TEXT: 'text',
+    NUMBER: 'integer',
+    LOCATION: 'location',
+    PHONE: 'phone',
+    DATE: 'date',
+    TIME: 'time',
+    DROPDOWN: 'dropdown',
+    RADIO: 'radio',
+    CHECKBOX: 'checkbox',
+    SEARCH: 'searchsingle',
+    TEXTBOX: 'textarea',
+    README: 'readme',
+    PHOTO: 'photo',
+    AUDIO: 'audio',
+    VIDEO: 'video',
+    BARCODE: 'barcode',
+    BRANCH: 'branch',
+    GROUP: 'group'
+}
