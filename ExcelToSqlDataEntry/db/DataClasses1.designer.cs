@@ -22,7 +22,7 @@ namespace ExcelToSqlDataEntry.db
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Serbeev6")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QWritev2")]
 	public partial class DataClasses1DataContext : System.Data.Linq.DataContext
 	{
 		
@@ -30,19 +30,16 @@ namespace ExcelToSqlDataEntry.db
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertCar(Car instance);
-    partial void UpdateCar(Car instance);
-    partial void DeleteCar(Car instance);
-    partial void InsertCarMaker(CarMaker instance);
-    partial void UpdateCarMaker(CarMaker instance);
-    partial void DeleteCarMaker(CarMaker instance);
-    partial void InsertNationality(Nationality instance);
-    partial void UpdateNationality(Nationality instance);
-    partial void DeleteNationality(Nationality instance);
+    partial void InsertClass(Class instance);
+    partial void UpdateClass(Class instance);
+    partial void DeleteClass(Class instance);
+    partial void InsertStudent(Student instance);
+    partial void UpdateStudent(Student instance);
+    partial void DeleteStudent(Student instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
-				base(global::ExcelToSqlDataEntry.Properties.Settings.Default.Serbeev6ConnectionString, mappingSource)
+				base(global::ExcelToSqlDataEntry.Properties.Settings.Default.QWritev2ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
@@ -71,48 +68,40 @@ namespace ExcelToSqlDataEntry.db
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Car> Cars
+		public System.Data.Linq.Table<Class> Classes
 		{
 			get
 			{
-				return this.GetTable<Car>();
+				return this.GetTable<Class>();
 			}
 		}
 		
-		public System.Data.Linq.Table<CarMaker> CarMakers
+		public System.Data.Linq.Table<Student> Students
 		{
 			get
 			{
-				return this.GetTable<CarMaker>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Nationality> Nationalities
-		{
-			get
-			{
-				return this.GetTable<Nationality>();
+				return this.GetTable<Student>();
 			}
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Cars")]
-	public partial class Car : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Class")]
+	public partial class Class : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Id;
 		
-		private string _CarName;
+		private string _ClassName;
 		
-		private bool _IsActive;
+		private System.Nullable<bool> _IsActive;
 		
-		private bool _IsDeleted;
+		private System.Nullable<bool> _IsDeleted;
 		
-		private System.Nullable<int> _CarMakerId;
+		private System.Nullable<int> _SchoolId;
 		
-		private EntityRef<CarMaker> _CarMaker;
+		private EntitySet<Student> _Students;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -120,19 +109,19 @@ namespace ExcelToSqlDataEntry.db
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnCarNameChanging(string value);
-    partial void OnCarNameChanged();
-    partial void OnIsActiveChanging(bool value);
+    partial void OnClassNameChanging(string value);
+    partial void OnClassNameChanged();
+    partial void OnIsActiveChanging(System.Nullable<bool> value);
     partial void OnIsActiveChanged();
-    partial void OnIsDeletedChanging(bool value);
+    partial void OnIsDeletedChanging(System.Nullable<bool> value);
     partial void OnIsDeletedChanged();
-    partial void OnCarMakerIdChanging(System.Nullable<int> value);
-    partial void OnCarMakerIdChanged();
+    partial void OnSchoolIdChanging(System.Nullable<int> value);
+    partial void OnSchoolIdChanged();
     #endregion
 		
-		public Car()
+		public Class()
 		{
-			this._CarMaker = default(EntityRef<CarMaker>);
+			this._Students = new EntitySet<Student>(new Action<Student>(this.attach_Students), new Action<Student>(this.detach_Students));
 			OnCreated();
 		}
 		
@@ -156,28 +145,28 @@ namespace ExcelToSqlDataEntry.db
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CarName", DbType="NVarChar(1600) NOT NULL", CanBeNull=false)]
-		public string CarName
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassName", DbType="NVarChar(1500) NOT NULL", CanBeNull=false)]
+		public string ClassName
 		{
 			get
 			{
-				return this._CarName;
+				return this._ClassName;
 			}
 			set
 			{
-				if ((this._CarName != value))
+				if ((this._ClassName != value))
 				{
-					this.OnCarNameChanging(value);
+					this.OnClassNameChanging(value);
 					this.SendPropertyChanging();
-					this._CarName = value;
-					this.SendPropertyChanged("CarName");
-					this.OnCarNameChanged();
+					this._ClassName = value;
+					this.SendPropertyChanged("ClassName");
+					this.OnClassNameChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit NOT NULL")]
-		public bool IsActive
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit")]
+		public System.Nullable<bool> IsActive
 		{
 			get
 			{
@@ -196,8 +185,8 @@ namespace ExcelToSqlDataEntry.db
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Bit NOT NULL")]
-		public bool IsDeleted
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Bit")]
+		public System.Nullable<bool> IsDeleted
 		{
 			get
 			{
@@ -216,332 +205,366 @@ namespace ExcelToSqlDataEntry.db
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CarMakerId", DbType="Int")]
-		public System.Nullable<int> CarMakerId
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SchoolId", DbType="Int")]
+		public System.Nullable<int> SchoolId
 		{
 			get
 			{
-				return this._CarMakerId;
+				return this._SchoolId;
 			}
 			set
 			{
-				if ((this._CarMakerId != value))
+				if ((this._SchoolId != value))
 				{
-					if (this._CarMaker.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCarMakerIdChanging(value);
+					this.OnSchoolIdChanging(value);
 					this.SendPropertyChanging();
-					this._CarMakerId = value;
-					this.SendPropertyChanged("CarMakerId");
-					this.OnCarMakerIdChanged();
+					this._SchoolId = value;
+					this.SendPropertyChanged("SchoolId");
+					this.OnSchoolIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CarMaker_Car", Storage="_CarMaker", ThisKey="CarMakerId", OtherKey="Id", IsForeignKey=true)]
-		public CarMaker CarMaker
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Class_Student", Storage="_Students", ThisKey="Id", OtherKey="ClassId")]
+		public EntitySet<Student> Students
 		{
 			get
 			{
-				return this._CarMaker.Entity;
+				return this._Students;
 			}
 			set
 			{
-				CarMaker previousValue = this._CarMaker.Entity;
+				this._Students.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Students(Student entity)
+		{
+			this.SendPropertyChanging();
+			entity.Class = this;
+		}
+		
+		private void detach_Students(Student entity)
+		{
+			this.SendPropertyChanging();
+			entity.Class = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Student")]
+	public partial class Student : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Email;
+		
+		private string _UserName;
+		
+		private string _DeviceId;
+		
+		private System.Nullable<bool> _IsActive;
+		
+		private System.Nullable<bool> _IsDeleted;
+		
+		private string _Password;
+		
+		private System.Nullable<int> _ClassId;
+		
+		private string _LoginId;
+		
+		private string _FatherName;
+		
+		private EntityRef<Class> _Class;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnUserNameChanging(string value);
+    partial void OnUserNameChanged();
+    partial void OnDeviceIdChanging(string value);
+    partial void OnDeviceIdChanged();
+    partial void OnIsActiveChanging(System.Nullable<bool> value);
+    partial void OnIsActiveChanged();
+    partial void OnIsDeletedChanging(System.Nullable<bool> value);
+    partial void OnIsDeletedChanged();
+    partial void OnPasswordChanging(string value);
+    partial void OnPasswordChanged();
+    partial void OnClassIdChanging(System.Nullable<int> value);
+    partial void OnClassIdChanged();
+    partial void OnLoginIdChanging(string value);
+    partial void OnLoginIdChanged();
+    partial void OnFatherNameChanging(string value);
+    partial void OnFatherNameChanged();
+    #endregion
+		
+		public Student()
+		{
+			this._Class = default(EntityRef<Class>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(1500)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="NVarChar(1500)")]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this.OnUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._UserName = value;
+					this.SendPropertyChanged("UserName");
+					this.OnUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DeviceId", DbType="NVarChar(1500)")]
+		public string DeviceId
+		{
+			get
+			{
+				return this._DeviceId;
+			}
+			set
+			{
+				if ((this._DeviceId != value))
+				{
+					this.OnDeviceIdChanging(value);
+					this.SendPropertyChanging();
+					this._DeviceId = value;
+					this.SendPropertyChanged("DeviceId");
+					this.OnDeviceIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit")]
+		public System.Nullable<bool> IsActive
+		{
+			get
+			{
+				return this._IsActive;
+			}
+			set
+			{
+				if ((this._IsActive != value))
+				{
+					this.OnIsActiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsActive = value;
+					this.SendPropertyChanged("IsActive");
+					this.OnIsActiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Bit")]
+		public System.Nullable<bool> IsDeleted
+		{
+			get
+			{
+				return this._IsDeleted;
+			}
+			set
+			{
+				if ((this._IsDeleted != value))
+				{
+					this.OnIsDeletedChanging(value);
+					this.SendPropertyChanging();
+					this._IsDeleted = value;
+					this.SendPropertyChanged("IsDeleted");
+					this.OnIsDeletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(50)")]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this.OnPasswordChanging(value);
+					this.SendPropertyChanging();
+					this._Password = value;
+					this.SendPropertyChanged("Password");
+					this.OnPasswordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassId", DbType="Int")]
+		public System.Nullable<int> ClassId
+		{
+			get
+			{
+				return this._ClassId;
+			}
+			set
+			{
+				if ((this._ClassId != value))
+				{
+					if (this._Class.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnClassIdChanging(value);
+					this.SendPropertyChanging();
+					this._ClassId = value;
+					this.SendPropertyChanged("ClassId");
+					this.OnClassIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LoginId", DbType="NVarChar(1500)")]
+		public string LoginId
+		{
+			get
+			{
+				return this._LoginId;
+			}
+			set
+			{
+				if ((this._LoginId != value))
+				{
+					this.OnLoginIdChanging(value);
+					this.SendPropertyChanging();
+					this._LoginId = value;
+					this.SendPropertyChanged("LoginId");
+					this.OnLoginIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FatherName", DbType="NVarChar(1600)")]
+		public string FatherName
+		{
+			get
+			{
+				return this._FatherName;
+			}
+			set
+			{
+				if ((this._FatherName != value))
+				{
+					this.OnFatherNameChanging(value);
+					this.SendPropertyChanging();
+					this._FatherName = value;
+					this.SendPropertyChanged("FatherName");
+					this.OnFatherNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Class_Student", Storage="_Class", ThisKey="ClassId", OtherKey="Id", IsForeignKey=true, DeleteRule="CASCADE")]
+		public Class Class
+		{
+			get
+			{
+				return this._Class.Entity;
+			}
+			set
+			{
+				Class previousValue = this._Class.Entity;
 				if (((previousValue != value) 
-							|| (this._CarMaker.HasLoadedOrAssignedValue == false)))
+							|| (this._Class.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._CarMaker.Entity = null;
-						previousValue.Cars.Remove(this);
+						this._Class.Entity = null;
+						previousValue.Students.Remove(this);
 					}
-					this._CarMaker.Entity = value;
+					this._Class.Entity = value;
 					if ((value != null))
 					{
-						value.Cars.Add(this);
-						this._CarMakerId = value.Id;
+						value.Students.Add(this);
+						this._ClassId = value.Id;
 					}
 					else
 					{
-						this._CarMakerId = default(Nullable<int>);
+						this._ClassId = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("CarMaker");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CarMaker")]
-	public partial class CarMaker : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _CarMakerName;
-		
-		private bool _IsActive;
-		
-		private bool _IsDeleted;
-		
-		private EntitySet<Car> _Cars;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnCarMakerNameChanging(string value);
-    partial void OnCarMakerNameChanged();
-    partial void OnIsActiveChanging(bool value);
-    partial void OnIsActiveChanged();
-    partial void OnIsDeletedChanging(bool value);
-    partial void OnIsDeletedChanged();
-    #endregion
-		
-		public CarMaker()
-		{
-			this._Cars = new EntitySet<Car>(new Action<Car>(this.attach_Cars), new Action<Car>(this.detach_Cars));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CarMakerName", DbType="NVarChar(1600)")]
-		public string CarMakerName
-		{
-			get
-			{
-				return this._CarMakerName;
-			}
-			set
-			{
-				if ((this._CarMakerName != value))
-				{
-					this.OnCarMakerNameChanging(value);
-					this.SendPropertyChanging();
-					this._CarMakerName = value;
-					this.SendPropertyChanged("CarMakerName");
-					this.OnCarMakerNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit NOT NULL")]
-		public bool IsActive
-		{
-			get
-			{
-				return this._IsActive;
-			}
-			set
-			{
-				if ((this._IsActive != value))
-				{
-					this.OnIsActiveChanging(value);
-					this.SendPropertyChanging();
-					this._IsActive = value;
-					this.SendPropertyChanged("IsActive");
-					this.OnIsActiveChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsDeleted", DbType="Bit NOT NULL")]
-		public bool IsDeleted
-		{
-			get
-			{
-				return this._IsDeleted;
-			}
-			set
-			{
-				if ((this._IsDeleted != value))
-				{
-					this.OnIsDeletedChanging(value);
-					this.SendPropertyChanging();
-					this._IsDeleted = value;
-					this.SendPropertyChanged("IsDeleted");
-					this.OnIsDeletedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CarMaker_Car", Storage="_Cars", ThisKey="Id", OtherKey="CarMakerId")]
-		public EntitySet<Car> Cars
-		{
-			get
-			{
-				return this._Cars;
-			}
-			set
-			{
-				this._Cars.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Cars(Car entity)
-		{
-			this.SendPropertyChanging();
-			entity.CarMaker = this;
-		}
-		
-		private void detach_Cars(Car entity)
-		{
-			this.SendPropertyChanging();
-			entity.CarMaker = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Nationality")]
-	public partial class Nationality : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Name;
-		
-		private bool _IsActive;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnIsActiveChanging(bool value);
-    partial void OnIsActiveChanged();
-    #endregion
-		
-		public Nationality()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(1550) NOT NULL", CanBeNull=false)]
-		public string Name
-		{
-			get
-			{
-				return this._Name;
-			}
-			set
-			{
-				if ((this._Name != value))
-				{
-					this.OnNameChanging(value);
-					this.SendPropertyChanging();
-					this._Name = value;
-					this.SendPropertyChanged("Name");
-					this.OnNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit NOT NULL")]
-		public bool IsActive
-		{
-			get
-			{
-				return this._IsActive;
-			}
-			set
-			{
-				if ((this._IsActive != value))
-				{
-					this.OnIsActiveChanging(value);
-					this.SendPropertyChanging();
-					this._IsActive = value;
-					this.SendPropertyChanged("IsActive");
-					this.OnIsActiveChanged();
+					this.SendPropertyChanged("Class");
 				}
 			}
 		}

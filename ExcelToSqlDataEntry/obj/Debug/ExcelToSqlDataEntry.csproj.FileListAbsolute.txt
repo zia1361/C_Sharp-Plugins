@@ -9,3 +9,14 @@ C:\Users\A.U Computer\source\repos\ExcelToSqlDataEntry\obj\Debug\ExcelToSqlDataE
 C:\Users\A.U Computer\source\repos\ExcelToSqlDataEntry\obj\Debug\ExcelToSqlDataEntry.csproj.CopyComplete
 C:\Users\A.U Computer\source\repos\ExcelToSqlDataEntry\obj\Debug\ExcelToSqlDataEntry.exe
 C:\Users\A.U Computer\source\repos\ExcelToSqlDataEntry\obj\Debug\ExcelToSqlDataEntry.pdb
+D:\repos\ExcelToSqlDataEntry\bin\Debug\ExcelToSqlDataEntry.exe.config
+D:\repos\ExcelToSqlDataEntry\bin\Debug\ExcelToSqlDataEntry.exe
+D:\repos\ExcelToSqlDataEntry\bin\Debug\ExcelToSqlDataEntry.pdb
+D:\repos\ExcelToSqlDataEntry\bin\Debug\ExcelDataReader.dll
+D:\repos\ExcelToSqlDataEntry\bin\Debug\ExcelDataReader.pdb
+D:\repos\ExcelToSqlDataEntry\bin\Debug\ExcelDataReader.xml
+D:\repos\ExcelToSqlDataEntry\obj\Debug\ExcelToSqlDataEntry.csprojAssemblyReference.cache
+D:\repos\ExcelToSqlDataEntry\obj\Debug\ExcelToSqlDataEntry.csproj.CoreCompileInputs.cache
+D:\repos\ExcelToSqlDataEntry\obj\Debug\ExcelToSqlDataEntry.csproj.CopyComplete
+D:\repos\ExcelToSqlDataEntry\obj\Debug\ExcelToSqlDataEntry.exe
+D:\repos\ExcelToSqlDataEntry\obj\Debug\ExcelToSqlDataEntry.pdb
